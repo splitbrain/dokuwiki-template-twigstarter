@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+    {% if ERROR %}
+        <h1>{{ ERROR }}</h1>
+    {% else %}
+        <h1>{{ TPL.tpl_img_getTag('simple.title')|nl2br }}</h1>
+
+        {{ TPL.tpl_img(900,700)|raw }}
+
+        {{ TPL.tpl_img_meta()|raw }}
+    {% endif %}
+
+{% endblock %}

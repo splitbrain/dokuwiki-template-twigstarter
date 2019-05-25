@@ -12,9 +12,41 @@
 </head>
 
 <body>
-<div id="dokuwiki__top" class="dokuwiki {{ TPL.tpl_classes() }}">
-    {% block content %}
+<div id="dokuwiki__top" class="{{ TPL.tpl_classes() }}">
 
-    {% endblock %}
+    <header>
+        {{ TPL.menu('mobile').getDropdown(lang.tools)|raw }}
+        {{ TPL.tpl_searchform()|raw }}
+    </header>
+
+    <aside>
+        <ul>
+            {{ TPL.menu('user').getListItems('action ')|raw }}
+            {{ TPL.menu('site').getListItems('action ')|raw }}
+            {% if TPL.view == 'detail' %}
+                {{ TPL.menu('detail').getListItems('action ')|raw }}
+            {% else %}
+                {{ TPL.menu('page').getListItems('action ')|raw }}
+            {% endif %}
+
+        </ul>
+    </aside>
+
+    <main>
+        {{ TPL.html_msgarea()|raw }}
+
+        <article>
+            {% block content %}
+            {% endblock %}
+        </article>
+
+        {{ TPL.tpl_pageinfo()|raw }}
+    </main>
+
+    <footer>
+        {{ TPL.tpl_license('')|raw }}
+    </footer>
 </div>
+
+<div class="no">{{ TPL.tpl_indexerWebBug()|raw }}</div>
 </body>

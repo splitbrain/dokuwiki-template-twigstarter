@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ conf.lang }}" dir="{{ lang.direction }}">
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ lang.mediaselect }} [{{ conf.title|striptags }}]</title>
+
+    {{ TPL.tpl_metaheaders|raw }}
+
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+    {{ TPL.tpl_favicon(['favicon', 'mobile'])|raw }}
+</head>
+
+<body>
+<div id="media__manager" class="dokuwiki">
+    {{ TPL.html_msgarea()|raw }}
+    <div id="mediamgr__aside">
+        <div class="pad">
+            <h1>{{ lang.mediaselect }}</h1>
+
+            <div id="media__opts"></div>
+
+            {{ TPL.tpl_mediaTree()|raw }}
+        </div>
+    </div>
+
+    <div id="mediamgr__content">
+        <div class="pad">
+            {{ TPL.tpl_mediaContent()|raw }}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
