@@ -15,6 +15,13 @@
 <div id="dokuwiki__top" class="{{ TPL.tpl_classes() }}">
 
     <header>
+        {% set logo = TPL.tpl_getMediaFile([':wiki:logo.png', ':logo.png', ':wiki:dokuwiki-128.png']) %}
+        <a href="{{ TPL.wl() }}"><img src="{{ logo }}"/></a>
+
+
+        <h1>{{ conf.title|raw }}</h1>
+        {% if conf.tagline %}<h2>{{ conf.tagline }}</h2>{% endif %}
+
         {{ TPL.menu('mobile').getDropdown(lang.tools)|raw }}
         {{ TPL.tpl_searchform()|raw }}
     </header>
@@ -31,6 +38,12 @@
 
         </ul>
     </aside>
+
+    {% if TPL.page_findnearest(conf.sidebar) and ACT == 'show' %}
+        <nav>
+            {{ TPL.tpl_include_page(conf.sidebar, true, true)|raw }}
+        </nav>
+    {% endif %}
 
     <main>
         {{ TPL.html_msgarea()|raw }}
