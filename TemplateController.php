@@ -31,10 +31,11 @@ class TemplateController
         $this->view = $view;
 
         // lookup templates in the twigstarter and the actual template
-        $paths = [__DIR__ . '/templates'];
-        if (is_dir(tpl_basedir() . '/templates')) {
-            $paths[] = tpl_basedir() . '/templates';
+        $paths = [];
+        if (is_dir(tpl_incdir() . 'templates')) {
+            $paths[] = tpl_incdir() . 'templates';
         }
+        $paths[] = __DIR__ . '/templates';
         $loader = new FilesystemLoader($paths);
         $this->twig = new Environment($loader, [
             'cache' => $conf['allowdebug'] ? false : $conf['cachedir'],
@@ -96,7 +97,8 @@ class TemplateController
      *
      * @return string
      */
-    public function getView() {
+    public function getView()
+    {
         return $this->view;
     }
 
