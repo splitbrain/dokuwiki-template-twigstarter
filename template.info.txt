@@ -4,4 +4,4 @@ email    andi@splitbrain.org
 date     2010-05-24
 name     TwigStarter
 desc     The base to build a Twig based DokuWiki Template
-url      https://www.dokuwiki.org/tpl:twigstarter
+url      https://www.dokuwiki.org/template:twigstarter
