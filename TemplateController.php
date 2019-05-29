@@ -93,6 +93,61 @@ class TemplateController
     }
 
     /**
+     * Initializes a new object
+     *
+     * This basically exposes the 'new' keyword to Twig. If the given class can't be found
+     * the current template's namespace is prepended and the lookup is tried again.
+     *
+     * @param string $class
+     * @param array $arguments
+     * @return Object
+     */
+    public function newObj($class, $arguments = [])
+    {
+        global $conf;
+        if (class_exists($class)) {
+            $classname = $class;
+        } else {
+            $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\' . $class;
+        }
+        if (!class_exists($classname)) {
+            throw new \http\Exception\BadMethodCallException("No such class $class");
+        }
+
+        return new $classname(...$arguments);
+    }
+
+    /**
+     * Calls a static method on the given class
+     *
+     * This exposes any static method to Twig. If the given class can't be found
+     * the current template's namespace is prepended and the lookup is tried again.
+     *
+     * @param string $class
+     * @param string $function
+     * @param array $arguments
+     * @return mixed
+     */
+    public function callStatic($class, $function, $arguments = [])
+    {
+        global $conf;
+        if (class_exists($class)) {
+            $classname = $class;
+        } else {
+            $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\' . $class;
+        }
+        if (!class_exists($classname)) {
+            throw new \http\Exception\BadMethodCallException("No such class $class");
+        }
+
+        if (!is_callable([$classname, $function])) {
+            throw new \http\Exception\BadMethodCallException("No such method $class::$function");
+        }
+
+        return call_user_func_array([$classname, $function], $arguments);
+    }
+
+    /**
      * Return the current view as set in the constructor
      *
      * @return string
