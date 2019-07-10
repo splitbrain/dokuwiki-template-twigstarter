@@ -37,8 +37,10 @@ class TemplateController
         }
         $paths[] = __DIR__ . '/templates';
         $loader = new FilesystemLoader($paths);
+        $cache = $conf['cachedir'] . 'twig';
+        io_mkdir_p($cache);
         $this->twig = new Environment($loader, [
-            'cache' => $conf['allowdebug'] ? false : $conf['cachedir'],
+            'cache' => $conf['allowdebug'] ? false : $cache,
             'debug' => $conf['allowdebug'],
         ]);
 
