@@ -6,6 +6,7 @@ use BadFunctionCallException;
 use BadMethodCallException;
 use dokuwiki\Menu\MenuInterface;
 use Exception;
+use RuntimeException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -113,7 +114,7 @@ class TemplateController
             $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\' . $class;
         }
         if (!class_exists($classname)) {
-            throw new \http\Exception\BadMethodCallException("No such class $class");
+            throw new RuntimeException("No such class $class");
         }
 
         return new $classname(...$arguments);
@@ -139,11 +140,11 @@ class TemplateController
             $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\' . $class;
         }
         if (!class_exists($classname)) {
-            throw new \http\Exception\BadMethodCallException("No such class $class");
+            throw new RuntimeException("No such class $class");
         }
 
         if (!is_callable([$classname, $function])) {
-            throw new \http\Exception\BadMethodCallException("No such method $class::$function");
+            throw new BadMethodCallException("No such method $class::$function");
         }
 
         return call_user_func_array([$classname, $function], $arguments);
@@ -183,6 +184,5 @@ class TemplateController
 
         throw new BadFunctionCallException("Function $name() does not exist");
     }
-
 
 }
