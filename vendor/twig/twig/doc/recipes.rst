@@ -128,7 +128,7 @@ might be tempted to write the following:
     {# page.twig in .../templates/mysite #}
     {% extends "page.twig" %} {# from .../templates/default #}
 
-Of course, this will not work as Twig will always load the template from
+However, this will not work as Twig will always load the template from
 ``.../templates/mysite``.
 
 It turns out it is possible to get this to work, by adding a directory right
@@ -299,7 +299,7 @@ Validating the Template Syntax
 
 When template code is provided by a third-party (through a web interface for
 instance), it might be interesting to validate the template syntax before
-saving it. If the template code is stored in a `$template` variable, here is
+saving it. If the template code is stored in a ``$template`` variable, here is
 how you can do it::
 
     try {
@@ -350,7 +350,7 @@ When attaching a visitor to a ``\Twig\Environment`` instance, Twig uses it to
 visit *all* templates it compiles. If you need to keep some state information
 around, you probably want to reset it when visiting a new template.
 
-This can be easily achieved with the following code::
+This can be achieved with the following code::
 
     protected $someTemplateState = [];
 
@@ -474,9 +474,9 @@ remove it from the database, and everything else will still work as before.
 Loading a Template from a String
 --------------------------------
 
-From a template, you can easily load a template stored in a string via the
-``template_from_string`` function (via the ``\Twig\Extension\StringLoaderExtension``
-extension):
+From a template, you can load a template stored in a string via the
+``template_from_string`` function (via the
+``\Twig\Extension\StringLoaderExtension`` extension):
 
 .. code-block:: twig
 
@@ -516,9 +516,7 @@ include in your templates:
             $interpolateProvider.startSymbol('{[').endSymbol(']}');
         });
 
-  * For Twig, change the delimiters via the ``tag_variable`` Lexer option:
-
-    ..  code-block:: php
+  * For Twig, change the delimiters via the ``tag_variable`` Lexer option::
 
         $env->setLexer(new \Twig\Lexer($env, [
             'tag_variable' => ['{[', ']}'],
