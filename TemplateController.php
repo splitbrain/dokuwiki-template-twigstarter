@@ -63,6 +63,12 @@ class TemplateController
         // make this controller available in twig as TPL
         $data['TPL'] = $this;
 
+        // autoregister a custom controller as a Twig variable
+        $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\CustomController';
+        if (class_exists($classname)  && is_a($classname, CustomControllerInterface::class, true)) {
+            $data['SELF'] = new $classname($this);
+        }
+
         // add user supplied data
         $data = array_merge($data, $vars);
 
