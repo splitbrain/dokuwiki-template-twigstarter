@@ -8,10 +8,12 @@ use dokuwiki\Menu\MenuInterface;
 use Exception;
 use RuntimeException;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * Controls all functionality of the TwigStarter Template
+ */
 class TemplateController
 {
     protected $view;
@@ -37,12 +39,13 @@ class TemplateController
             $paths[] = tpl_incdir() . 'templates';
         }
         $paths[] = __DIR__ . '/templates';
-        $loader = new FilesystemLoader($paths);
+        $loader = new TwigStarterLoader($paths);
         $cache = $conf['cachedir'] . '/twig';
         io_mkdir_p($cache);
         $this->twig = new Environment($loader, [
             'cache' => $conf['allowdebug'] ? false : $cache,
             'debug' => $conf['allowdebug'],
+            'auto_reload' => true,
         ]);
 
     }
@@ -65,7 +68,7 @@ class TemplateController
 
         // autoregister a custom controller as a Twig variable
         $classname = '\\dokuwiki\\template\\' . $conf['template'] . '\\CustomController';
-        if (class_exists($classname)  && is_a($classname, CustomControllerInterface::class, true)) {
+        if (class_exists($classname) && is_a($classname, CustomControllerInterface::class, true)) {
             $data['SELF'] = new $classname($this);
         }
 
