@@ -13,7 +13,7 @@ class TwigStarterLoader extends FilesystemLoader
      * Cache is dependent on DokuWiki config
      * @inheritdoc
      */
-    public function isFresh($name, $time)
+    public function isFresh($name, $time): bool
     {
         $fresh = parent::isFresh($name, $time);
         if (!$fresh) return $fresh;
