@@ -1,7 +1,8 @@
 base     twigstarter
 author   Andreas Gohr
 email    andi@splitbrain.org
-date     2022-09-30
+date     2026-06-23
 name     TwigStarter
 desc     The base to build a Twig based DokuWiki Template
 url      https://www.dokuwiki.org/template:twigstarter
+phpmin   8.2
